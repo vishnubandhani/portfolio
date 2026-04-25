@@ -494,14 +494,7 @@
       </div>
     </div>
     <div class="reveal">
-      <!-- Success Message -->
-      <div id="form-success" style="display:none; background: rgba(22,163,74,0.12); border: 1.5px solid rgba(22,163,74,0.4); border-radius: 16px; padding: 2.5rem 2rem; text-align: center;">
-        <div style="font-size: 3rem; margin-bottom: .75rem;">✅</div>
-        <p style="color: #86efac; font-size: 1.1rem; font-weight: 500; line-height: 1.7;">Aapka message mil gaya!<br>Hum jald sampark karenge.</p>
-      </div>
-
-      <form id="contact-form" class="contact-form" name="contact" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="contact" />
+      <form id="contact-form" class="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Aapka Naam</label>
@@ -555,33 +548,26 @@
   }, { threshold: 0.3 });
   document.querySelectorAll('.skill-card').forEach(c => barObserver.observe(c));
 
-  // Form - Netlify AJAX submission with inline success message
+  // Form - mailto submission
   const form = document.querySelector('#contact-form');
-  const successBox = document.querySelector('#form-success');
 
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const btn = form.querySelector('.btn-send');
-      btn.textContent = 'Bhej rahe hain...';
-      btn.disabled = true;
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
 
-      const formData = new FormData(form);
+      const mailSubject = encodeURIComponent(subject || 'Naya Message - VB Hardware Store');
+      const mailBody    = encodeURIComponent(
+        'Naam: ' + name + '\n' +
+        'Email: ' + email + '\n\n' +
+        'Message:\n' + message
+      );
 
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
-      })
-      .then(() => {
-        form.style.display = 'none';
-        successBox.style.display = 'block';
-      })
-      .catch(() => {
-        // Even on network error in local preview, show success for demo
-        form.style.display = 'none';
-        successBox.style.display = 'block';
-      });
+      window.location.href =
+        'mailto:vishnubandhani@gmail.com?subject=' + mailSubject + '&body=' + mailBody;
     });
   }
 </script>
