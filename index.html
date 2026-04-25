@@ -342,6 +342,27 @@
       .about-avatar { max-width: 240px; font-size: 5rem; }
       .nav-links { display: none; }
     }
+
+    /* ── WHATSAPP BUTTON ── */
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; gap: 1rem;
+      background: #25d366;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.15rem; font-weight: 600;
+      text-decoration: none;
+      padding: 1.2rem 2.4rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+      transition: transform .25s, box-shadow .25s, background .2s;
+      letter-spacing: 0.2px;
+    }
+    .whatsapp-btn:hover {
+      background: #1ebe5d;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(37,211,102,0.55);
+    }
+    .whatsapp-btn:active { transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -493,28 +514,13 @@
         </a>
       </div>
     </div>
-    <div class="reveal">
-      <form id="contact-form" class="contact-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Aapka Naam</label>
-            <input type="text" id="name" name="name" placeholder="Rahul Sharma" required/>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="rahul@email.com" required/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="subject">Subject</label>
-          <input type="text" id="subject" name="subject" placeholder="Project ke baare mein baat karni hai"/>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Aapka message yahaan likhein..." required></textarea>
-        </div>
-        <button type="submit" class="btn-send">Message Bhejein ✉️</button>
-      </form>
+    <div class="reveal" style="display:flex; align-items:center; justify-content:center;">
+      <a href="https://wa.me/917454982523" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="white" width="28" height="28" style="flex-shrink:0;">
+          <path d="M16 2C8.268 2 2 8.268 2 16c0 2.47.67 4.784 1.838 6.77L2 30l7.43-1.818A13.94 13.94 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.55 11.55 0 0 1-5.89-1.607l-.422-.25-4.41 1.08 1.11-4.295-.276-.44A11.6 11.6 0 1 1 16 27.6zm6.38-8.674c-.35-.174-2.07-1.02-2.39-1.137-.32-.116-.553-.174-.786.174-.233.347-.9 1.137-1.104 1.37-.203.232-.406.26-.756.086-.35-.174-1.478-.545-2.815-1.737-1.04-.928-1.742-2.073-1.946-2.42-.203-.347-.022-.535.153-.708.157-.156.35-.406.524-.61.174-.203.232-.347.348-.58.116-.232.058-.435-.029-.61-.087-.173-.786-1.896-1.077-2.596-.283-.682-.572-.59-.786-.6l-.669-.012c-.232 0-.61.087-.928.435-.32.347-1.22 1.194-1.22 2.912 0 1.717 1.25 3.377 1.423 3.61.174.232 2.46 3.757 5.962 5.268.834.36 1.484.575 1.991.736.837.266 1.6.229 2.202.139.672-.1 2.07-.847 2.362-1.664.29-.817.29-1.517.203-1.664-.086-.145-.32-.232-.669-.406z"/>
+        </svg>
+        WhatsApp pe Message Karein
+      </a>
     </div>
   </div>
 </section>
@@ -548,28 +554,7 @@
   }, { threshold: 0.3 });
   document.querySelectorAll('.skill-card').forEach(c => barObserver.observe(c));
 
-  // Form - mailto submission
-  const form = document.querySelector('#contact-form');
-
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name    = document.getElementById('name').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      const mailSubject = encodeURIComponent(subject || 'Naya Message - VB Hardware Store');
-      const mailBody    = encodeURIComponent(
-        'Naam: ' + name + '\n' +
-        'Email: ' + email + '\n\n' +
-        'Message:\n' + message
-      );
-
-      window.location.href =
-        'mailto:vishnubandhani@gmail.com?subject=' + mailSubject + '&body=' + mailBody;
-    });
-  }
+  // WhatsApp button - no extra JS needed
 </script>
 </body>
 </html>
